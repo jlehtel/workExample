@@ -1,6 +1,5 @@
 package nordea;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -10,15 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.GeckoDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
 
 public class AmazonSteps {
     public static WebDriver driver;
@@ -43,7 +36,6 @@ public class AmazonSteps {
     public void sorting() throws Throwable {
         WebElement element=driver.findElement(By.xpath("//*[@id=\"sort\"]/option[4]"));
         element.click();
-
     }
 
     @Then("^the (.*) result is '(.*)'$")
@@ -51,8 +43,6 @@ public class AmazonSteps {
         position = position-1;
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"result_"+position+"\"]/div/div/div/div[2]/div[1]/div[1]")));
-
-        //driver.findElement(By.xpath("//*[@id=\"result_1\"]/div/div/div/div[2]/div[1]/div[1]")).click();
         driver.findElement(By.xpath("//*[@id=\"result_"+position+"\"]/div/div/div/div[2]/div[1]/div[1]")).click();
         String description = driver.findElement(By.id("productTitle")).getText();
         Assert.assertTrue("Item is not a "+arg1,description.contains(arg1));
